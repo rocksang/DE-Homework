@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "8080:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - ./data_pgadmin:/var/lib/pgadmin
+  
+  pg-database:
+    image: postgres:13
+    container_name: pg-database
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ny_taxi
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  taxi_ingest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: taxi_ingest
+    depends_on:
+      - pg-database
+    environment:
+      - user=root
+      - password=root
+      - host=pg-database
+      - port=5432
+      - db=ny_taxi
+      - table_name=yellow_taxi_trips
+      - url=https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv
+
+volumes:
+  pg_data:
+

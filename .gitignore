@@ -1,0 +1,46 @@
+# Terraform files
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+
+# Large data files
+*.csv
+
+# OS files
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+
+# Python virtual env
+venv/
+__pycache__/
+
+# Logs
+*.log
+
+# Credentials
+*.json
+*.pem
+*.key
+
+# Ignore CSV files
+*.csv
+
+# Ignore Terraform directory
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+
+# Ignore large files
+*.tar.gz
+*.zip
+
+# Mac-specific files
+.DS_Store
+
+# Node modules or virtual envs if applicable
+venv/
+node_modules/
